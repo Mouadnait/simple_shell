@@ -23,9 +23,9 @@ int is_chain(shell_t *shell, char *buf, size_t *p)
 		j++;
 		shell->cmd_buf_type = CMD_AND;
 	}
-	else if (buf[j] == ';') /* found end of this command */
+	else if (buf[j] == ';')
 	{
-		buf[j] = 0; /* replace semicolon with null */
+		buf[j] = 0;
 		shell->cmd_buf_type = CMD_CHAIN;
 	}
 	else
