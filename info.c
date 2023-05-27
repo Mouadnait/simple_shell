@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * clear_info - initializes info_t struct
+ * clear_info - initializes shell_t struct
  * @info: struct address
  */
-void clear_info(info_t *info)
+void clear_info(shell_t *info)
 {
 	info->arg = NULL;
 	info->argv = NULL;
@@ -13,11 +13,11 @@ void clear_info(info_t *info)
 }
 
 /**
- * set_info - initializes info_t struct
+ * set_info - initializes shell_t struct
  * @info: struct address
  * @av: argument vector
  */
-void set_info(info_t *info, char **av)
+void set_info(shell_t *info, char **av)
 {
 	int i = 0;
 
@@ -45,11 +45,11 @@ void set_info(info_t *info, char **av)
 }
 
 /**
- * free_info - frees info_t struct fields
+ * free_info - frees shell_t struct fields
  * @info: struct address
  * @all: true if freeing all fields
  */
-void free_info(info_t *info, int all)
+void free_info(shell_t *info, int all)
 {
 	ffree(info->argv);
 	info->argv = NULL;
@@ -65,7 +65,7 @@ void free_info(info_t *info, int all)
 		if (info->alias)
 			free_list(&(info->alias));
 		ffree(info->environ);
-			info->environ = NULL;
+		info->environ = NULL;
 		bfree((void **)info->cmd_buf);
 		if (info->readfd > 2)
 			close(info->readfd);
