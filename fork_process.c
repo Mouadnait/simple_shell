@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * fork_cmd - forks a an exec thread to run cmd
  * @info: the parameter & return info struct
@@ -11,7 +12,6 @@ void fork_cmd(shell_t *info)
     child_pid = fork();
     if (child_pid == -1)
     {
-        /* TODO: PUT ERROR FUNCTION */
         perror("Error:");
         return;
     }
@@ -24,7 +24,6 @@ void fork_cmd(shell_t *info)
                 exit(126);
             exit(1);
         }
-        /* TODO: PUT ERROR FUNCTION */
     }
     else
     {
