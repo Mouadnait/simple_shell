@@ -1,12 +1,11 @@
 #include "shell.h"
 
 /**
- * get_environ - returns the string array copy of our environ
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- * Return: Always 0
+ * get_environ - Retrieves the environment variables of the shell.
+ * @info: The shell_t struct containing information about the shell.
+ * Return: A pointer to the environment variables.
  */
-char **get_environ(info_t *info)
+char **get_environ(shell_t *info)
 {
 	if (!info->environ || info->env_changed)
 	{
@@ -18,13 +17,12 @@ char **get_environ(info_t *info)
 }
 
 /**
- * _unsetenv - Remove an environment variable
- * @info: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
- *  Return: 1 on delete, 0 otherwise
- * @var: the string env var property
+ * _unsetenv - Removes an environment variable from the shell's environment list.
+ * @info: The shell_t struct containing information about the shell.
+ * @var: The name of the variable to remove.
+ * Return: 1 if the environment list was changed, 0 otherwise.
  */
-int _unsetenv(info_t *info, char *var)
+int _unsetenv(shell_t *info, char *var)
 {
 	list_t *node = info->env;
 	size_t i = 0;
@@ -50,15 +48,13 @@ int _unsetenv(info_t *info, char *var)
 }
 
 /**
- * _setenv - Initialize a new environment variable,
- *             or modify an existing one
- * @info: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
- * @var: the string env var property
- * @value: the string env var value
- *  Return: Always 0
+ * _setenv - Sets an environment variable in the shell's environment list.
+ * @info: The shell_t struct containing information about the shell.
+ * @var: The name of the variable to set.
+ * @value: The value to set the variable to.
+ * Return: 0 if successful, 1 otherwise.
  */
-int _setenv(info_t *info, char *var, char *value)
+int _setenv(shell_t *info, char *var, char *value)
 {
 	char *buf = NULL;
 	list_t *node;
