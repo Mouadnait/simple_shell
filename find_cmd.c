@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * find_cmd - finds a command in PATH
  * @info: the parameter & return info struct
