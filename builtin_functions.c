@@ -9,7 +9,7 @@ int __exit(shell_t *shell)
 {
 	int exitcheck;
 
-	if (shell->argv[1]) /* If there is an exit arguement */
+	if (shell->argv[1])
 	{
 		exitcheck = _erratoi(shell->argv[1]);
 		if (exitcheck == -1)
@@ -44,7 +44,7 @@ int _cd(shell_t *shell)
 	{
 		dir = _getenv(shell, "HOME=");
 		if (!dir)
-			chdir_ret = /* TODO: what should this be? */
+			chdir_ret =
 				chdir((dir = _getenv(shell, "PWD=")) ? dir : "/");
 		else
 			chdir_ret = chdir(dir);
@@ -58,7 +58,7 @@ int _cd(shell_t *shell)
 			return (1);
 		}
 		_puts(_getenv(shell, "OLDPWD=")), _putchar('\n');
-		chdir_ret = /* TODO: what should this be? */
+		chdir_ret =
 			chdir((dir = _getenv(shell, "OLDPWD=")) ? dir : "/");
 	}
 	else
