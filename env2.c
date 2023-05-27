@@ -17,7 +17,8 @@ char **get_environ(shell_t *info)
 }
 
 /**
- * _unsetenv - Removes an environment variable from the shell's environment list.
+ * _unsetenv - Removes an environment variable from
+ * the shell's environment list.
  * @info: The shell_t struct containing information about the shell.
  * @var: The name of the variable to remove.
  * Return: 1 if the environment list was changed, 0 otherwise.
