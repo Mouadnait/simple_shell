@@ -50,7 +50,6 @@ typedef struct liststr
  *@fname: the program filename
  *@env: linked list local copy of environ
  *@environ: custom modified copy of environ from LL env
- *@history: the history node
  *@alias: the alias node
  *@env_changed: on if environ was changed
  *@status: the return status of the last exec'd command
@@ -70,7 +69,6 @@ typedef struct shell_s
 	int linecount_flag;
 	char *fname;
 	list_t *env;
-	list_t *history;
 	list_t *alias;
 	char **environ;
 	int env_changed;
@@ -100,6 +98,7 @@ void fork_cmd(shell_t *);
 int is_cmd(shell_t *, char *);
 char *dup_chars(char *, int, int);
 char *find_path(shell_t *, char *, char *);
+
 int loophsh(char **);
 
 void _eputs(char *);
@@ -161,12 +160,6 @@ int populate_env_list(shell_t *);
 char **get_environ(shell_t *);
 int _unsetenv(shell_t *, char *);
 int _setenv(shell_t *, char *, char *);
-
-char *get_history_file(shell_t *info);
-int write_history(shell_t *info);
-int read_history(shell_t *info);
-int build_history_list(shell_t *info, char *buf, int linecount);
-int renumber_history(shell_t *info);
 
 list_t *add_node(list_t **, const char *, int);
 list_t *add_node_end(list_t **, const char *, int);

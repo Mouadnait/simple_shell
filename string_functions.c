@@ -1,93 +1,100 @@
 #include "shell.h"
 
 /**
- * _strlen - returns the length of a string
- * @s: the string whose length to check
- * Return: integer length of string
+ * _strlen - calculates the length of a string.
+ * @str: pointer to the character array.
+ * Return: length of the string
  */
-int _strlen(char *s)
+int _strlen(char *str)
 {
-	int i = 0;
+	int len = 0;
 
-	if (!s)
+	if (str == NULL)
 		return (0);
 
-	while (*s++)
-		i++;
-	return (i);
+	while (str[len] != '\0')
+		len++;
+
+	return (len);
 }
 
 /**
- * _strcmp - performs lexicogarphic comparison of two strangs.
- * @s1: the first strang
- * @s2: the second strang
- * Return: negative if s1 < s2, positive if s1 > s2, zero if s1 == s2
+ * _strcmp - compares two strings, ending at the first byte that is different.
+ * @s1: string to be compared
+ * @s2: string to compare by
+ * Return: the difference between the first character that are not the same
  */
 int _strcmp(char *s1, char *s2)
 {
-	while (*s1 && *s2)
+	int i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
 	{
-		if (*s1 != *s2)
-			return (*s1 - *s2);
-		s1++;
-		s2++;
+		i++;
 	}
-	if (*s1 == *s2)
-		return (0);
-	else
-		return (*s1 < *s2 ? -1 : 1);
+	return (s1[i] - s2[i]);
 }
 
 /**
- * starts_with - checks if needle starts with haystack
- * @haystack: string to search
- * @needle: the substring to find
- * Return: address of next char of haystack or NULL
+ * starts_with - checks if target starts with str
+ * @str: string to search
+ * @target: the substring to find
+ * Return: address of next char of str or NULL
  */
-char *starts_with(const char *haystack, const char *needle)
+char *starts_with(const char *str, const char *target)
 {
-	while (*needle)
-		if (*needle++ != *haystack++)
+	while (*target)
+		if (*target++ != *str++)
 			return (NULL);
-	return ((char *)haystack);
+	return ((char *)str);
 }
 
 /**
  * _strcat - concatenates two strings
- * @dest: the destination buffer
- * @src: the source buffer
- * Return: pointer to destination buffer
+ * @dest: pointer to the destination string
+ * @src: pointer to the source string
+ * Return: pointer to the resulting string dest
  */
 char *_strcat(char *dest, char *src)
 {
-	char *ret = dest;
+	int i;
+	int dest_len = _strlen(dest);
+	int src_len = _strlen(src);
 
-	while (*dest)
-		dest++;
-	while (*src)
-		*dest++ = *src++;
-	*dest = *src;
-	return (ret);
+	for (i = 0; i < src_len; i++)
+	{
+		dest[dest_len + i] = src[i];
+	}
+	dest[dest_len + i] = '\0';
+
+	return (dest);
 }
 
 /**
- * _strdup - duplicates a string
- * @str: the string to duplicate
- * Return: pointer to the duplicated string
+ * _strdup - copies a string into a new buffer
+ * @str: the string to copy
+ * Return: pointer to a new buffer
  */
 char *_strdup(const char *str)
 {
-	int length = 0;
-	char *ret;
+	char *str_arr;
+	unsigned int i;
 
 	if (str == NULL)
 		return (NULL);
-	while (*str++)
-		length++;
-	ret = malloc(sizeof(char) * (length + 1));
-	if (!ret)
+
+	str_arr = (char *)malloc((strlen(str) + 1) * sizeof(char));
+
+	if (!str_arr)
 		return (NULL);
-	for (length++; length--;)
-		ret[length] = *--str;
-	return (ret);
+	i = 0;
+	while (i < strlen(str))
+	{
+		str_arr[i] = str[i];
+		i++;
+	}
+	str_arr[i] = '\0';
+
+	return (str_arr);
 }
