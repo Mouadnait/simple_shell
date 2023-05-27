@@ -12,9 +12,8 @@ ssize_t input_buf(shell_t *info, char **buf, size_t *len)
 	ssize_t r = 0;
 	size_t len_p = 0;
 
-	if (!*len) /* if nothing left in the buffer, fill it */
+	if (!*len)
 	{
-		/*bfree((void **)info->cmd_buf);*/
 		free(*buf);
 		*buf = NULL;
 		r = _getline(info, buf, &len_p);
@@ -22,7 +21,7 @@ ssize_t input_buf(shell_t *info, char **buf, size_t *len)
 		{
 			if ((*buf)[r - 1] == '\n')
 			{
-				(*buf)[r - 1] = '\0'; /* remove trailing newline */
+				(*buf)[r - 1] = '\0';
 				r--;
 			}
 			info->linecount_flag = 1;
@@ -41,41 +40,41 @@ ssize_t input_buf(shell_t *info, char **buf, size_t *len)
  */
 ssize_t get_input(shell_t *info)
 {
-	static char *buf; /* the ';' command chain buffer */
+	static char *buf;
 	static size_t i, j, len;
 	ssize_t r = 0;
 	char **buf_p = &(info->arg), *p;
 
 	_putchar(BUF_FLUSH);
 	r = input_buf(info, &buf, &len);
-	if (r == -1) /* EOF */
+	if (r == -1)
 		return (-1);
-	if (len) /* we have commands left in the chain buffer */
+	if (len)
 	{
-		j = i;		 /* init new iterator to current buf position */
-		p = buf + i; /* get pointer for return */
+		j = i;
+		p = buf + i;
 
 		check_chain(info, buf, &j, i, len);
-		while (j < len) /* iterate to semicolon or end */
+		while (j < len)
 		{
 			if (is_chain(info, buf, &j))
 				break;
 			j++;
 		}
 
-		i = j + 1;	  /* increment past nulled ';'' */
-		if (i >= len) /* reached end of buffer? */
+		i = j + 1;
+		if (i >= len)
 		{
-			i = len = 0; /* reset position and length */
+			i = len = 0;
 			info->cmd_buf_type = CMD_NORM;
 		}
 
-		*buf_p = p;			 /* pass back pointer to current command position */
-		return (_strlen(p)); /* return length of current command */
+		*buf_p = p;
+		return (_strlen(p));
 	}
 
-	*buf_p = buf; /* else not a chain, pass back buffer from _getline() */
-	return (r);	  /* return length of buffer from _getline() */
+	*buf_p = buf;
+	return (r);
 }
 
 /**
@@ -125,7 +124,7 @@ int _getline(shell_t *info, char **ptr, size_t *length)
 	c = _strchr(buf + i, '\n');
 	k = c ? 1 + (unsigned int)(c - buf) : len;
 	new_p = _realloc(p, s, s ? s + k : k + 1);
-	if (!new_p) /* MALLOC FAILURE! */
+	if (!new_p)
 		return (p ? free(p), -1 : -1);
 
 	if (s)
