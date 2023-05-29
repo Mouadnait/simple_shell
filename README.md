@@ -80,51 +80,6 @@ hsh main.c shell.c test_ls_2
 $
 ```
 
-## Description of File Structure
-
-1. [builtins.c](builtins.c) - Includes builtin functions:
-
-- `is_builtin()` - checks to see if the command is a builtin, then returns a function pointer to one of the following functions:
-- `_exit_with_grace` - exits the shell and frees any malloc'd space.
-- `_env()` - prints the current environment.
-- `_cd()` - change pwd. Can be used without arguments. `cd -` takes the user to the last directory. `cd ~` takes the user home.`<em>`Not yet built `</em>`
-- `help()` - Prints help for builtin commands.`<em>`Not yet built `</em>`
-
-2. [builtins_2.c](builtins_2.c) - Second file with builtin functions:
-
-- `_setenv_usr()` - User creates or modifies an environment variable.
-- `_unsetenv_usr()` - User deletes an environment variable.`<em>`Not yet built `</em>`
-- `_alias` - Sets, modifies or prints an alias. `<em>`Not yet built `</em>`
-- `_history` - Prints the history. Clear history with -c flag. `<em>`Not yet built `</em>`
-
-3. [env_operations.c](env_operations.c)
-
-- `_getenv()` - recreation of `getenv()` from `<stdlib.h>`. Gets the value of the provided key. Returns NULL if not found or on error.
-- `_unsetenv()` - Unsets an environmental variable. `<em>`Not yet built. Currently, just returns the output from the standard library.`</em>`
-- `_setenv()` - Adds or modifies an environmental variable. `<em>`Not yet built. Currently, just returns the output from the standard library.`</em>`
-
-5. [execution.c](executor.c) - Includes only one function that is essential to the core functionality
-
-- `executor()` - Executes a command
-
-7. [shell.c](main.c) - Entry point to program, contains only the opening message.
-8. [parse_command.c](parser.c) - Includes all string parsing related functions, and includes functions critical to the basic functionality:
-
-- `_getline()` - Recreation of `getline()` from `<stdio.h>`. Gets a line from stdin, delimited by a `\n` character. Also handles `EOF`. Returns the line, or NULL on error.
-- `parser()` - Parses a string into tokens. Returns a double pointer.
-- `is_alias` - Filler function for handling aliases. Currently does not do anything. `<em>` This functionality has not been built.`</em>`
-- global variable `flag` for `signalhandler()` - Triggers when `^C` is hit, then turns off.
-- `sighandler`` - Interrupts the running process if it is not a builtin then prints the prompt again.
-- `reader()` - Reads user input, turns it into a string and parses it into tokens. Then it performs actions based on the first token.
-
-10. [shell.h](shell.h) - Header file: Contains all struct definitions, macros, standard library includes, and function prototypes.
-11. \_[strtok.c](strtok.c) - Includes the strtok function, as well as helper functions that do not need to be referenced elsewhere
-
-- `_strchr()` - Checks for a char in a string. Returns the string on success, and NULL on failure. Recreation of `strchr()` from `<string.h>`
-- `_strspn()` - Gets the length of a substring. Recreation of `strspn()` from `<string.h>` with a different return type.
-- `_strpbrk() - search a string for any set of bytes. Recreation of `strpbrk()`from`<string.h>``
-- `_strtok_r()` - Split a string into tokens, and alters the string in the process. Recreation of `strtok` from `<string.h>`
-
 ## Team
 
 - _Amal Cholo_ - [Github](https://github.com/ivy-515)
